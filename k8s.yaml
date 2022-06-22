@@ -1,9 +1,9 @@
 ---
 # deployment.yaml
-apiVersion: apps/v1beta2
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: qa
+  namespace: ns-jenkins
   name: shiqi-deploy
   labels:
     app: shiqi-deploy
@@ -79,7 +79,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: qa
+  namespace: ns-jenkins
   name: shiqi-deploy
   labels:
     app: shiqi-deploy
@@ -101,7 +101,7 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  namespace: qa
+  namespace: ns-jenkins
   name: shiqi-deploy
   labels:
     app: shiqi-deploy
