@@ -27,7 +27,7 @@ spec:
         release: shiqi-deploy
     spec:
       imagePullSecrets:
-        - name: ns-jenkins
+        - name: ali-docker-auth
       containers:
         - name: shiqi-deploy
           image: "registry.cn-hangzhou.aliyuncs.com/ranmo/shiqi-deploy:0.1.1"
