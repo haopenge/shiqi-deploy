@@ -30,7 +30,7 @@ spec:
         - name: ns-jenkins
       containers:
         - name: shiqi-deploy
-          image: "registry.cn-hangzhou.aliyuncs.com/ranmo/shiqi-deploy:0.1.${BUILD_NUMBER}"
+          image: "registry.cn-hangzhou.aliyuncs.com/ranmo/shiqi-deploy:0.1.1"
           command:
             - sh
             - -c
