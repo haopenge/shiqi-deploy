@@ -6,6 +6,7 @@ docker build -t registry.cn-hangzhou.aliyuncs.com/ranmo/shiqi-deploy:0.1.${BUILD
 docker push registry.cn-hangzhou.aliyuncs.com/ranmo/shiqi-deploy:0.1.${BUILD_NUMBER}
 
 # 发布服务
-helm install shiqi-deploy chart/
+#helm install shiqi-deploy chart/
+kubectl apply -f k8s.yaml
 
 # 发布 chart
