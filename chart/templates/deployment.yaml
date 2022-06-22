@@ -1,0 +1,55 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  namespace: {{.Values.namespace}}
+  name: {{.Values.appname}}
+  labels:
+    app: {{.Values.appname}}
+    release: {{.Values.appname}}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+  {{ toYaml .Values.strategy | indent 4 }}
+selector:
+  matchLabels:
+    app: {{ .Values.appname }}
+    release: {{ .Values.appname }}
+template:
+  metadata:
+    labels:
+      app: {{ .Values.appname }}
+      release: {{ .Values.appname }}
+  spec:
+    imagePullSecrets:
+      - name: docker-registry
+    containers:
+      - name: {{ .Values.appname }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        command:
+  {{ toYaml .Values.image.command | indent 12 }}
+env:
+  {{ toYaml .Values.image.env | indent 12 }}
+envFrom:
+  {{ toYaml .Values.image.envFrom | indent 12 }}
+imagePullPolicy: {{ .Values.image.pullPolicy }}
+
+ports:
+  - name: http
+    containerPort: {{ .Values.image.containerPort }}
+    protocol: TCP
+#          livenessProbe:
+#            httpGet:
+#              path: /healthz
+#              port: http
+#            initialDelaySeconds: 5
+resources:
+  {{ toYaml .Values.resources | indent 12 }}
+  {{- with .Values.nodeSelector }}
+nodeSelector:
+  {{ toYaml . | indent 8 }}
+  {{- end }}
+  {{- with .Values.affinity }}
+affinity:
+  {{ toYaml . | indent 8 }}
+  {{- end }}
+  {{- with .Values.tolerations }}

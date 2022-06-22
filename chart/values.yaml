@@ -1,0 +1,97 @@
+#要部署的应用的名字，全局唯一
+appname: shiqi-deploy
+#部署的空间，由运维统一分配
+namespace: qa
+#pod启动的副本数
+replicaCount: 1
+domain: shiqi-deploy.qa.cn
+
+metadata:
+  labels:
+    prometheus: ""
+
+#定义容器的属性
+image:
+  #服务镜像
+  repository: registry.cn-hangzhou.aliyuncs.com/ranmo/shiqi-deploy
+  #镜像tag
+  tag: 0.1.${BUILD_NUMBER}
+
+  pullPolicy: IfNotPresent
+  #服务启动命令，如果是jar包启动的java程序需要添加内存设置
+  command:
+    - "sh"
+    - "-c"
+    - "(sh /root/deploy/run.sh)"
+  #服务监听端口
+  containerPort: 8080
+  env:
+    - name: JAVA_OPTS
+      value: "-Xms4096m -Xmx4096m -javaagent:/data/server/skywalking-agent/skywalking-agent.jar=agent.service_name=peppa-student-api"
+    - name: evn
+      value: "qa"
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.name
+    - name: POD_IP
+      valueFrom:
+        fieldRef:
+          fieldPath: status.podIP
+    - name: NODE_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: spec.nodeName
+    - name: NODE_IP
+      valueFrom:
+        fieldRef:
+          fieldPath: status.hostIP
+    - name: APP_NAME
+      value: peppa-student-api
+
+  #配置文件
+  #envFrom: []
+  #  - configMapRef:
+  #      name: peppa-teach-panel-qa
+  #readinessProbe:
+  #  httpGet:
+  #    path: /actuator/health
+  #    port: 8080
+  #    scheme: HTTP
+  #  initialDelaySeconds: 5
+  #  periodSeconds: 2
+  #  timeoutSeconds: 3
+  #  successThreshold: 1
+  #  failureThreshold: 5
+
+strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 0
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  rules:
+    #服务访问域名和路径转发规则
+    - host: shiqi-deploy.qa.cn
+      path: /
+      #和上面的appname要一样
+      appname: shiqi-deploy
+
+#服务资源限制,运维分配
+resources:
+  limits:
+    cpu: 2
+    memory: 2048Mi
+  requests:
+    cpu: 0.1
+    memory: 1024Mi
+
+
+nodeSelector: {}
+tolerations: []
