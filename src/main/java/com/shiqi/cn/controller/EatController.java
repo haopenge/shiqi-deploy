@@ -20,5 +20,9 @@ public class EatController {
     public String eatOrange(){
         return "I eat an eatOrange !!!";
     }
+    @GetMapping("/eat/grape")
+    public String eatGrape(){
+        return "I eat an eat grape !!!";
+    }
 
 }
