@@ -8,21 +8,21 @@ public class EatController {
 
     @GetMapping("/eat/apple")
     public String eatApple(){
-        return "I eat an apple !!!";
+        return "I eat 6 apple !!!";
     }
 
     @GetMapping("/eat/banana")
     public String eat(){
-        return "I eat an banana !!!";
+        return "I eat 6 banana !!!";
     }
 
     @GetMapping("/eat/orange")
     public String eatOrange(){
-        return "I eat an eatOrange !!!";
+        return "I eat 6 eatOrange !!!";
     }
     @GetMapping("/eat/grape")
     public String eatGrape(){
-        return "I eat an eat grape !!!";
+        return "I eat 6 eat grape !!!";
     }
 
 }
