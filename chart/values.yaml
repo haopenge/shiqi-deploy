@@ -1,0 +1,82 @@
+#要部署的应用的名字，全局唯一
+appname: shiqi-deploy
+#部署的空间，由运维统一分配
+namespace: qa
+#pod启动的副本数
+replicaCount: 1
+domain: shiqi-deploy.qa.cn
+
+metadata:
+  labels:
+    prometheus: ""
+
+#定义容器的属性
+image:
+  #服务镜像
+  repository: registry.cn-hangzhou.aliyuncs.com/ranmo/shiqi-deploy
+  #镜像tag
+  tag: ${BUILD_NUMBER}
+
+  pullPolicy: IfNotPresent
+  #服务启动命令，如果是jar包启动的java程序需要添加内存设置
+  command:
+    - "sh"
+    - "-c"
+    - "(sh /root/deploy/run.sh)"
+  #服务监听端口
+  containerPort: 8080
+  env:
+    - name: JAVA_OPTS
+      value: "-Xms2048m -Xmx2048m"
+    - name: evn
+      value: "qa"
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.name
+    - name: POD_IP
+      valueFrom:
+        fieldRef:
+          fieldPath: status.podIP
+    - name: NODE_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: spec.nodeName
+    - name: NODE_IP
+      valueFrom:
+        fieldRef:
+          fieldPath: status.hostIP
+    - name: APP_NAME
+      value: shiqi-deploy
+
+strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 0
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  rules:
+    # 服务访问域名和路径转发规则
+    - host: shiqi-deploy.qa.cn
+      path: /
+      appname: shiqi-deploy
+      servicePort: http
+
+#服务资源限制,运维分配
+resources:
+  limits:
+    cpu: 2
+    memory: 2048Mi
+  requests:
+    cpu: 0.1
+    memory: 1024Mi
+
+
+nodeSelector: {}
+tolerations: []
