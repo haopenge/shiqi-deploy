@@ -11,4 +11,9 @@ public class EatController {
         return "I eat an apple !!!";
     }
 
+    @GetMapping("/eat/banana")
+    public String eat(){
+        return "I eat an banana !!!";
+    }
+
 }
