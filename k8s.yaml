@@ -30,7 +30,7 @@ spec:
         - name: ali-docker-auth
       containers:
         - name: shiqi-deploy
-          image: "registry.cn-hangzhou.aliyuncs.com/ranmo/shiqi-deploy:0.1.1"
+          image: registry.cn-hangzhou.aliyuncs.com/ranmo/shiqi-deploy:${BUILD_NUMBER}
           command:
             - sh
             - -c
