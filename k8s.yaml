@@ -3,7 +3,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: ns-jenkins
+  namespace: qa
   name: shiqi-deploy
   labels:
     app: shiqi-deploy
@@ -26,6 +26,7 @@ spec:
         app: shiqi-deploy
         release: shiqi-deploy
     spec:
+      restartPolicy: OnFailure
       imagePullSecrets:
         - name: ali-docker-auth
       containers:
@@ -79,7 +80,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: ns-jenkins
+  namespace: qa
   name: shiqi-deploy
   labels:
     app: shiqi-deploy
@@ -101,7 +102,7 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  namespace: ns-jenkins
+  namespace: qa
   name: shiqi-deploy
   labels:
     app: shiqi-deploy
