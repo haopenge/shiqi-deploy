@@ -7,6 +7,7 @@ docker push registry.cn-hangzhou.aliyuncs.com/ranmo/shiqi-deploy:${BUILD_NUMBER}
 
 # 发布服务
 #helm install shiqi-deploy chart/
+kubectl delete -f k8s.yaml
 kubectl apply -f k8s.yaml
 
 # 发布 chart
