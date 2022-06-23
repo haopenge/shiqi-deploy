@@ -26,7 +26,6 @@ spec:
         app: shiqi-deploy
         release: shiqi-deploy
     spec:
-      restartPolicy: OnFailure
       imagePullSecrets:
         - name: ali-docker-auth
       containers:
