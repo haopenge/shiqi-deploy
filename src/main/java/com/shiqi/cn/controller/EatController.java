@@ -8,7 +8,7 @@ public class EatController {
 
     @GetMapping("/eat/apple")
     public String eatApple(){
-        return "I eat apple";
+        return "I eat an apple !!!";
     }
 
 }
