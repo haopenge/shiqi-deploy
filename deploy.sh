@@ -9,4 +9,5 @@ docker push registry.cn-hangzhou.aliyuncs.com/ranmo/shiqi-deploy:${BUILD_NUMBER}
 #kubectl apply -f k8s.yaml
 
 # 发布 chart
+echo "<<--------------helm 安装应用--------------------->>"
 helm install shiqi-deploy chart

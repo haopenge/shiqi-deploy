@@ -15,7 +15,7 @@ image:
   #服务镜像
   repository: registry.cn-hangzhou.aliyuncs.com/ranmo/shiqi-deploy
   #镜像tag
-  tag: 71
+  tag: ${BUILD_NUMBER}
 
   pullPolicy: IfNotPresent
   #服务启动命令，如果是jar包启动的java程序需要添加内存设置
