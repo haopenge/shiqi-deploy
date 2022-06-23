@@ -9,7 +9,6 @@ docker push registry.cn-hangzhou.aliyuncs.com/ranmo/shiqi-deploy:${BUILD_NUMBER}
 
 
 echo "<<======================修改helm、k8s.yaml中的镜像版本号 ===================>>"
-
 sed -i "s/build_number/${BUILD_NUMBER}/g" chart/Chart.yaml
 sed -i "s/build_number/${BUILD_NUMBER}/g" chart/values.yaml
 sed -i "s/build_number/${BUILD_NUMBER}/g" k8s.yaml
