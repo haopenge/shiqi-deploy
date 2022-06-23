@@ -10,4 +10,4 @@ docker push registry.cn-hangzhou.aliyuncs.com/ranmo/shiqi-deploy:${BUILD_NUMBER}
 
 # 发布 chart
 echo "<<--------------helm 安装应用--------------------->>"
-helm install shiqi-deploy chart
+helm upgrade shiqi-deploy chart
