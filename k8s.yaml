@@ -109,7 +109,7 @@ metadata:
 
 spec:
   rules:
-    - host: shiqi-deploy.qa.cn
+    - host: shiqi-deploy.rainxx.top
       http:
         paths:
           - path: /
