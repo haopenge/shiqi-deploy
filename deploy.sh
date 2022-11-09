@@ -1,5 +1,3 @@
-old_version=$((BUILD_NUMBER-1))
-
 echo "<<====================== 1. 登录docker仓库===================>>"
 docker login --username=$ALI_DOCKER_USERNAME --password=$ALI_DOCKER_PASSWORD registry.cn-hangzhou.aliyuncs.com
 
@@ -17,6 +15,3 @@ sed -i "s/build_number/${BUILD_NUMBER}/g" k8s.yaml
 
 echo "<<====================== 4. 发布服务 ===================>>"
 kubectl apply -f k8s.yaml
-
-echo "<<====================== 5. 清除删一个版本镜像 ===================>>"
-docker rmi registry.cn-hangzhou.aliyuncs.com/ranmo/shiqi-deploy:${old_version}
