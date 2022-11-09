@@ -19,4 +19,4 @@ echo "<<====================== 4. 发布服务 ===================>>"
 kubectl apply -f k8s.yaml
 
 echo "<<====================== 5. 清除删一个版本镜像 ===================>>"
-docker rmi dk.uino.cn/template-manager:${old_version}
+docker rmi registry.cn-hangzhou.aliyuncs.com/ranmo/shiqi-deploy:${old_version}
