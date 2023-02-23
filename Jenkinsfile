@@ -1,4 +1,4 @@
-def label = "jnlp-slave"
+def label = "qa"
 
 podTemplate(label: label,cloud: 'kubernetes' ){
     node (label) {
